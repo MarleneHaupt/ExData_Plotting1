@@ -1,9 +1,9 @@
 # Course Project 1
-# plot 2
+# plot 4
 
 Sys.setlocale("LC_TIME", "English")
 
-        ###same for all plots 1-4
+###same for all plots 1-4
         # code for reading the data so that the plot can be fully reproduced
         if (!file.exists("mydata")){
           dir.create("mydata")
@@ -28,10 +28,21 @@ Sys.setlocale("LC_TIME", "English")
         changetime <- strptime(DF$Time, "%H:%M:%S")
         DF$DateTime <- as.POSIXct(paste(DF$Date, DF$Time), format = "%d/%m/%Y %H:%M:%S")
 
-# plot 2
-# code to construct the second plot
+# plot 4
+# code to construct the fourth plot
 # code to save the plot to a PNG file with a width of 480 pixels and a height of 480 pixels
 
-  png(file = "plot2.png", bg = "transparent", width = 480, height = 480)
-        plot(DF$DateTime, DF$Global_active_power, type = "l", lty = 1, xlab = "", ylab = "Global Active Power (kilowatts)")
+  png(file = "plot4.png", bg = "transparent", width = 480, height = 480)
+  par(mfrow = c(2,2))
+        #plot1
+        plot(DF$DateTime, DF$Global_active_power, type = "l", lty = 1, xlab = "", ylab = "Global Active Power")
+        #plot2
+        plot(DF$DateTime, DF$Voltage, type = "l", lty = 1, xlab = "datetime", ylab = "Voltage")
+        #plot3
+        plot(DF$DateTime, DF$Sub_metering_1, col = "black", type = "l", lty = 1, xlab = "", ylab = "Energy sub metering")
+        lines(DF$DateTime, DF$Sub_metering_2, col = "red")
+        lines(DF$DateTime, DF$Sub_metering_3, col = "blue")
+        legend("topright", lty = 1, bty = "n", col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+        #plot4
+        plot(DF$DateTime, DF$Global_reactive_power, type = "l", lty = 1, xlab = "datetime", ylab = "Global_reactive_power")
   dev.off()
